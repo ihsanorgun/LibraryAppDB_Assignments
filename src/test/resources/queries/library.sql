@@ -13,3 +13,12 @@ WHERE is_returned=0;
 
 -- US03
 select name from book_categories;
+
+
+--US04
+
+SELECT * from books where name='Book Borrow 2';
+
+SELECT b.name,b_c.name from books b
+                                inner join book_categories b_c
+                                           on b.book_category_id=b_c.id where b.name='Book Borrow 2';

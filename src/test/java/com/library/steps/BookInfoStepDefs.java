@@ -1,7 +1,12 @@
 package com.library.steps;
 
 import com.library.pages.BookPage;
+import com.library.utility.ConfigurationReader;
+import com.library.utility.DB_Util;
 import io.cucumber.java.en.*;
+import org.junit.Assert;
+
+import java.util.Map;
 
 public class BookInfoStepDefs {
 
@@ -21,6 +26,22 @@ public class BookInfoStepDefs {
 
     @Then("book information must match the Database")
     public void book_information_must_match_the_database() {
+
+        String queryForSpecificBook = "SELECT * from books where name='Book Borrow 2';";
+        DB_Util.runQuery(queryForSpecificBook);
+        Map<String, String> mapDataFromDB = DB_Util.getRowMap(1);
+        System.out.println(mapDataFromDB);
+
+        //get the name from DB
+        String name_db = mapDataFromDB.get("name");
+        //get name from ui
+        String name_ui = bookPage.getBookInfo("Book Name");
+        Assert.assertEquals(name_db,name_ui);
+        //get year from db
+        String year_db = mapDataFromDB.get("year");
+        //get year from ui
+        String year_ui = bookPage.getBookInfo("Year");
+        Assert.assertEquals(year_db,year_ui);
 
 
 
