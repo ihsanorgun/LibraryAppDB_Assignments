@@ -1,6 +1,7 @@
 package com.library.steps;
 
 import com.library.pages.BookPage;
+import com.library.utility.BrowserUtil;
 import com.library.utility.ConfigurationReader;
 import com.library.utility.DB_Util;
 import io.cucumber.java.en.*;
@@ -35,6 +36,7 @@ public class BookInfoStepDefs {
         //get the name from DB
         String name_db = mapDataFromDB.get("name");
         //get name from ui
+        BrowserUtil.waitFor(3);
         String name_ui = bookPage.getBookInfo("Book Name");
         Assert.assertEquals(name_db,name_ui);
         //get year from db
